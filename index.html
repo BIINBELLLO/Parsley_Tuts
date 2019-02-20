@@ -17,13 +17,28 @@
         <form id = "issueInputForm">
         <div class="row">
             <div class="col-md-6">
+                <label>Full Name:</label>
                 <input type="text" name="Full" class="form-control">
+                <span id="full"></span>
             </div><div class="col-md-6">
+                <label>Username:</label>
                 <input type="text" name="username" class="form-control">
+                <span id="user"></span>
             </div>
         </div>
-        <input type="password" name="pswd" class="form-control">
-        <input type="password" name="pswd2" class="form-control">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Password:</label>
+                <input type="password" name="pswd" class="form-control">
+                <span id="pswd"></span>
+            </div><div class="col-md-6">
+                <label>Confirm Password:</label>
+                <input type="password" name="pswd2" class="form-control">
+                <span id="cpswd"></span>
+            </div>
+        </div>
+        <br>
         <button type="submit" class="btn btn-outline-success pull-right">Submit</button>
         </form>
     </div>
