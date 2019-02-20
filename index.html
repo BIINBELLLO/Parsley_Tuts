@@ -30,11 +30,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Password:</label>
-                <input type="password" name="pswd" class="form-control">
-                <span id="pswd"></span>
+                <input type="password" name="pswd" id="pswd1" oninput="checkPasswordStrength('pswd1')" class="form-control">
+                <span id="password_strength_caption"></span>
             </div><div class="col-md-6">
                 <label>Confirm Password:</label>
-                <input type="password" name="pswd2" class="form-control">
+                <input type="password" name="pswd2" id="cpaswd1" class="form-control">
                 <span id="cpswd"></span>
             </div>
         </div>
@@ -42,15 +42,75 @@
         <button type="submit" class="btn btn-outline-success pull-right">Submit</button>
         </form>
     </div>
+    <br>
     <div class = "footer">
-        <p>@copy TryingOutCodeTheRightWay.com</p>
+        <p>&copy; TryingOutCodeTheRightWay.com</p>
     </div>
 
 </div>
 <script src="https://chancejs.com/chance.min.js"></script>
 <script src = "main.js"></script>
+<!-- <script src = "custom_scripts.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function checkPasswordStrength(id) {
+    var psw = document.getElementById(id).value;
+    psw = psw.trim();
+    var allow = false;
+    pl = psw.length;
+    var score = 0;
+    if (pl >= 4) score += 10;
+    if (pl >= 6) score += 20;
+    if (pl >= 8) score += 30;
+    if (pl >= 12) score += 40;
+    al = pl;
+    if (al > 12) al = 12;
+    score += al * 4;
+    var nl = contains(psw, 'abcdefghijklmnopqrstuvwxyz');
+    if (nl > 0) score += 10;
+    var nd = contains(psw, '1234567890');
+    if (nd > 0) score += 5;
+    if (nd > 1) score += 10;
+    if (nd > 2) score += 15;
+    var ns = contains(psw, '~!@#$%^&*()_+{}|:"<>?`-=[]\;,./');
+    if (ns > 0) score += 10;
+    if (ns > 1) score += 10;
+    if (ns > 2) score += 10;
+    if ((nl < 3 || nd == 0) && score > 80) score = 80;
+    var perc = score / 140;
+    var fg = Math.round(perc * 100);
+    if (fg > 99) fg = 99;
+    var bg = 100 - fg;
+    var strength = '';
+    var psfg = document.getElementById('password_strength_foreground');
+    var psbg = document.getElementById('password_strength_background');
+    if (fg < 50) {
+        strength = 'Too Weak';
+        if (fg < 30) {
+            psfg.style.backgroundColor = '#D00000';
+            psbg.style.backgroundColor = '#E08080';
+        } else {
+            psfg.style.backgroundColor = '#D0D000';
+            psbg.style.backgroundColor = '#E0E080';
+        }
+    } else if (fg < 90) {
+        strength = 'Strong Enough';
+        psfg.style.backgroundColor = '#00D000';
+        psbg.style.backgroundColor = '#80E080';
+        allow = true;
+    } else {
+        strength = 'Very Strong';
+        psfg.style.backgroundColor = '#00D000';
+        psbg.style.backgroundColor = '#80E080';
+        allow = true;
+    }
+    document.getElementById('password_strength_caption').innerHTML = strength;
+    psfg.style.width = fg + 'px';
+    psbg.style.width = bg + 'px';
+    return allow;
+}
+</script>
 </body>
 </html>
