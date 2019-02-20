@@ -94,7 +94,6 @@
     var fg = Math.round(perc * 100);
     if (fg > 99) fg = 99;
     var bg = 100 - fg;
-    var strength = '';
     var bad = document.getElementById('bad');
     var good = document.getElementById('good');
     var better = document.getElementById('better');
@@ -108,14 +107,18 @@
             better.style.width = '0%';
             best.style.width = '0%';
         } else {
-            psfg.style.backgroundColor = '#D0D000';
-            psbg.style.backgroundColor = '#E0E080';
+            bad.style.width = '0%';
+            good.style.width = '50%';
+            good.innerHTML = '50% Still Weak, But Better';
+            better.style.width = '0%';
+            best.style.width = '0%';
         }
     } else if (fg < 90) {
-        strength = 'Strong Enough';
-        psfg.style.backgroundColor = '#00D000';
-        psbg.style.backgroundColor = '#80E080';
-        allow = true;
+            bad.style.width = '0%';
+            good.style.width = '0%';
+            better.style.width = '0%';
+            better.innerHTML = '70% Much Better, But You Can Do More';
+            best.style.width = '0%';
     } else {
         strength = 'Very Strong';
         psfg.style.backgroundColor = '#00D000';
