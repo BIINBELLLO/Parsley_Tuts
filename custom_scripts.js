@@ -1,5 +1,5 @@
-function checkPasswordStrength(id) {
-    var psw = document.getElementById(id).value;
+function checkPasswordStrength() {
+    var psw = document.getElementById('pswd1').value;
     psw = psw.trim();
     var allow = false;
     pl = psw.length;
@@ -9,8 +9,8 @@ function checkPasswordStrength(id) {
     if (pl >= 8) score += 30;
     if (pl >= 12) score += 40;
     al = pl;
-    if (al > 12) al = 12;
-    score += al * 4;
+    // if (al > 12) al = 12;
+    // score += al * 4;
     var nl = contains(psw, 'abcdefghijklmnopqrstuvwxyz');
     if (nl > 0) score += 10;
     var nd = contains(psw, '1234567890');
@@ -21,36 +21,57 @@ function checkPasswordStrength(id) {
     if (ns > 0) score += 10;
     if (ns > 1) score += 10;
     if (ns > 2) score += 10;
-    if ((nl < 3 || nd == 0) && score > 80) score = 80;
-    var perc = score / 140;
+    // if ((nl < 3 || nd == 0) && score > 80) score = 80;
+    var perc = score / 170;
     var fg = Math.round(perc * 100);
-    if (fg > 99) fg = 99;
-    var bg = 100 - fg;
-    var strength = '';
-    var psfg = document.getElementById('password_strength_foreground');
-    var psbg = document.getElementById('password_strength_background');
+    // best.innerHTML = fg;
+    // if (fg > 99) fg = 99;
+    // var bg = 100 - fg;
+    var bad = document.getElementById('bad');
+    var good = document.getElementById('good');
+    var better = document.getElementById('better');
+    var best = document.getElementById('best');
     if (fg < 50) {
-        strength = 'Too Weak';
+        // strength = 'Too Weak';
         if (fg < 30) {
-            psfg.style.backgroundColor = '#D00000';
-            psbg.style.backgroundColor = '#E08080';
+            bad.style.width = fg+'%';
+            bad.innerHTML = fg+'% Too Weak';
+            bad.style.display = 'block';
+            good.style.display = 'none';
+            better.style.display = 'none';
+            best.style.display = 'none';
         } else {
-            psfg.style.backgroundColor = '#D0D000';
-            psbg.style.backgroundColor = '#E0E080';
+            bad.style.display = 'none';
+            good.style.width = fg+'%';
+            good.style.display = 'block';
+            good.innerHTML = fg+'% Still Weak, But Better';
+            better.style.display = 'none';
+            best.style.display = 'none';
         }
-    } else if (fg < 90) {
-        strength = 'Strong Enough';
-        psfg.style.backgroundColor = '#00D000';
-        psbg.style.backgroundColor = '#80E080';
-        allow = true;
+    } else if (fg < 80) {
+            bad.style.display = 'none';
+            good.style.display = 'none';
+            better.style.width = fg+'%';
+            better.innerHTML = fg+'% Much Better';
+            better.style.display = 'block';
+            best.style.display = 'none';
     } else {
-        strength = 'Very Strong';
-        psfg.style.backgroundColor = '#00D000';
-        psbg.style.backgroundColor = '#80E080';
-        allow = true;
+            bad.style.display = 'none';
+            good.style.display = 'none';
+            better.style.display = 'none';
+            best.style.width = fg+'%';
+            best.innerHTML = fg+'%, Very Strong';
+            best.style.display = 'block';
     }
-    document.getElementById('password_strength_caption').innerHTML = strength;
-    psfg.style.width = fg + 'px';
-    psbg.style.width = bg + 'px';
-    return allow;
+}
+
+function contains(password, validChars) {
+    var c = 0;
+    for (i = 0; i < password.length; i++) {
+        var char = password.charAt(i);
+        if (validChars.indexOf(char) > -1) {
+            c++;
+        }
+    }
+    return c;
 }
