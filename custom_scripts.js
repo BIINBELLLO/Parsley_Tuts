@@ -75,3 +75,17 @@ function contains(password, validChars) {
     }
     return c;
 }
+
+
+function checkPasswordMatch() {
+    var initial = document.getElementById('pswd1').value;
+    var current = document.getElementById('cpaswd1').value;
+    var shw = document.getElementById('pmatch');
+    if (initial === current) {
+        shw.innerHTML = "YES";
+        shw.className = 'text-success font-weight-bolder';
+    }else{
+        shw.innerHTML = "NO";
+        shw.className = 'text-danger font-weight-bolder';
+    }
+}

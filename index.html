@@ -11,7 +11,10 @@
 </head>
 <body>
 <div class = "container">
-    <h1>Parsley JS Tutorial <small> Trying out code the right way</small></h1>
+    <h1>
+        <span class="text-primary">Parsley JS Tutorial</span> 
+        <small class="text-success font-italic small"> Trying out code the right way</small>
+    </h1>
     <div class = "Jumbotron">
         <h3> Add New Profile: </h3>
         <form id = "reg_form">
@@ -36,7 +39,7 @@
                         <span id="password_strength_caption"></span>
                     </div>
                 </div> -->
-                <span class="text-success font-weight-bold">Password Strength</span>
+                <span class="text-info">Password Strength</span>
                 <div class="progress">
                     <div id="bad" class="progress-bar bg-danger progress-bar-striped progress-bar-animated"      style="display: none;"></div>
                     <div id="good" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" style="display: none;"></div>
@@ -46,8 +49,8 @@
                 </div>
             </div><div class="col-md-6">
                 <label>Confirm Password:</label>
-                <input type="password" name="pswd2" id="cpaswd1" class="form-control" data-parsley-min = "6" data-parsley-trigger = 'keyup'>
-                <span id="cpswd"></span>
+                <input type="password" name="pswd2" id="cpaswd1" class="form-control" oninput="checkPasswordMatch()">
+                <span class="text-info">Password Match: <span id="pmatch"></span></span>
             </div>
         </div>
         <br>
