@@ -30,8 +30,19 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Password:</label>
-                <input type="password" name="pswd" id="pswd1" oninput="checkPasswordStrength('pswd1')" class="form-control">
-                <span id="password_strength_caption"></span>
+                <input type="password" name="pswd" id="pswd1" oninput="checkPasswordStrength()" class="form-control">
+                <!-- <div id="password_strength_foreground">
+                    <div id = "password_strength_background">
+                        <span id="password_strength_caption"></span>
+                    </div>
+                </div> -->
+                <div class="progress">
+                    <div id="bad" class="progress-bar bg-danger progress-bar-striped progress-bar-animated"      style="width:0%"></div>
+                    <div id="good" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" style="width:0%"></div>
+                    <div id="better" class="progress-bar bg-info progress-bar-striped progress-bar-animated" style="width:0%"></div>
+              
+                    <div id="best" class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%">100%</div>
+                </div>
             </div><div class="col-md-6">
                 <label>Confirm Password:</label>
                 <input type="password" name="pswd2" id="cpaswd1" class="form-control">
@@ -55,8 +66,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    function checkPasswordStrength(id) {
-    var psw = document.getElementById(id).value;
+    function checkPasswordStrength() {
+    var psw = document.getElementById('pswd1').value;
     psw = psw.trim();
     var allow = false;
     pl = psw.length;
@@ -84,13 +95,18 @@
     if (fg > 99) fg = 99;
     var bg = 100 - fg;
     var strength = '';
-    var psfg = document.getElementById('password_strength_foreground');
-    var psbg = document.getElementById('password_strength_background');
+    var bad = document.getElementById('bad');
+    var good = document.getElementById('good');
+    var better = document.getElementById('better');
+    var best = document.getElementById('best');
     if (fg < 50) {
         strength = 'Too Weak';
         if (fg < 30) {
-            psfg.style.backgroundColor = '#D00000';
-            psbg.style.backgroundColor = '#E08080';
+            bad.style.width = '30%';
+            bad.innerHTML = '30% Too Weak';
+            good.style.width = '0%';
+            better.style.width = '0%';
+            best.style.width = '0%';
         } else {
             psfg.style.backgroundColor = '#D0D000';
             psbg.style.backgroundColor = '#E0E080';
@@ -110,6 +126,17 @@
     psfg.style.width = fg + 'px';
     psbg.style.width = bg + 'px';
     return allow;
+}
+
+function contains(password, validChars) {
+    var c = 0;
+    for (i = 0; i < password.length; i++) {
+        var char = password.charAt(i);
+        if (validChars.indexOf(char) > -1) {
+            c++;
+        }
+    }
+    return c;
 }
 </script>
 </body>
