@@ -9,8 +9,6 @@ function checkPasswordStrength() {
     if (pl >= 8) score += 30;
     if (pl >= 12) score += 40;
     al = pl;
-    // if (al > 12) al = 12;
-    // score += al * 4;
     var nl = contains(psw, 'abcdefghijklmnopqrstuvwxyz');
     if (nl > 0) score += 10;
     var nd = contains(psw, '1234567890');
@@ -21,18 +19,13 @@ function checkPasswordStrength() {
     if (ns > 0) score += 10;
     if (ns > 1) score += 10;
     if (ns > 2) score += 10;
-    // if ((nl < 3 || nd == 0) && score > 80) score = 80;
     var perc = score / 170;
     var fg = Math.round(perc * 100);
-    // best.innerHTML = fg;
-    // if (fg > 99) fg = 99;
-    // var bg = 100 - fg;
     var bad = document.getElementById('bad');
     var good = document.getElementById('good');
     var better = document.getElementById('better');
     var best = document.getElementById('best');
     if (fg < 50) {
-        // strength = 'Too Weak';
         if (fg < 30) {
             bad.style.width = fg+'%';
             bad.innerHTML = fg+'% Too Weak';
